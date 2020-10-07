@@ -1,0 +1,19 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: helm-pipe
+  namespace: jenkins-ci
+spec:
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/bhavinajmera/sample-node-helm.git'
+      ref: master
+  triggers: []
+  runPolicy: Serial

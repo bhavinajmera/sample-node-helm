@@ -24,7 +24,7 @@ podTemplate(label: label, cloud: 'openshift',
         def helmRepository = props["helmRepository"]
 
         stage('Add Stable Repo') {
-            container('helm') {
+            steps {
                 sh "mkdir -p /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm"
                 sh "mkdir -p /home/jenkins/agent/workspace/jenkins-ci/helm/.cache/helm/repository"
                 sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/ --repository-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.yaml --registry-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.json --repository-cache /home/jenkins/agent/workspace/jenkins-ci/helm/.cache/helm/repository"
@@ -37,34 +37,11 @@ podTemplate(label: label, cloud: 'openshift',
             container('helm') {
                 sh "helm upgrade --install my-guestbook shailendra/guestbook --values dev/values.yaml --wait"
                 
-                echo "Adding ChartMuseum repo"
                             }
         }
 
-        stage('Package Charts') {
-            container('helm') {
-                echo "Packaging consumer chart"
-                sh "helm package ${baseDeployDir}/helm/consumer"
 
-                echo "Packaging producer chart"
-                sh "helm package ${baseDeployDir}/helm/producer"
-            }
-        }
 
-        stage('Push charts to ChartMuseum') {
-            container('helm') {
-                sh "helm push -f ${baseDeployDir}/helm/consumer/ ${helmRepository}"
-                sh "helm push -f ${baseDeployDir}/helm/producer/ ${helmRepository}"
-                sh "helm repo update"
-            }
-        }
-
-        stage('Deploy Application') {
-            container('helm') {
-                sh "helm dep update ${baseDeployDir}/helm/app"
-                sh "helm upgrade --install --wait ${releaseName} ${baseDeployDir}/helm/app -n ${appNamespace}"
-            }
-        }
     }
 }
 

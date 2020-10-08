@@ -11,13 +11,15 @@
               sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/"
               sh "helm repo update"
               openshift.withCluster(){
-                openshift.withProject() {
-                  openshift.selector("all", [ template : templateName ]).delete()
-                  if (openshift.selector("secrets", templateName).exists()) {
-                      openshift.selector("secrets", templateName).delete() }
+                  openshift.withProject() {
+                                    // delete everything with this template label
+                                    openshift.selector("all", [ template : templateName ]).delete()
+                                    // delete any secrets with this template label
+                                    if (openshift.selector("secrets", templateName).exists()) {
+                                        openshift.selector("secrets", templateName).delete()
+                                    }
+                                }
 
-                  sh "helm upgrade --install my-guestbook stable/guestbook -n jenkins-ci --wait"
-                }
               }
             }
           }

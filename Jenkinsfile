@@ -2,7 +2,7 @@
                     cloud: "openshift", 
                     containers: [
             containerTemplate(name: "mypod", 
-                              image: "image-registry.openshift-image-registry.svc:5000/jenkins-ci/helm1", 
+                              image: "image-registry.openshift-image-registry.svc:5000/jenkins-ci/centos-helm", 
                               command: 'cat',
                               ttyEnabled: true)
         ])

@@ -6,11 +6,9 @@
                               command: 'cat',
                               ttyEnabled: true)
         ])
-          agent {
             node {
               label 'mypod'
             }
-          }
           options {
                 // set a timeout of 20 minutes for this pipeline
                 timeout(time: 20, unit: 'MINUTES')

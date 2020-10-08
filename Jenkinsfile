@@ -6,7 +6,6 @@
                               command: 'cat',
                               ttyEnabled: true)
         ])
-        pipeline {
           agent {
             node {
               label 'mypod'
@@ -30,4 +29,3 @@
                }
              }
            }
-         }

@@ -6,12 +6,28 @@
                               command: 'cat',
                               ttyEnabled: true)
         ])
-        {
-          node("mypod") { 
-            sh "mkdir -p /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm"
+        pipline {
+          agent {
+            node {
+              label 'mypod'
+            }
+          }
+          options {
+                // set a timeout of 20 minutes for this pipeline
+                timeout(time: 20, unit: 'MINUTES')
+           }
+           stages {
+             stage('Repo Add') {
+               steps {
+                 Container ('mypod')
+                 script { 
+                  sh "mkdir -p /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm"
             sh "mkdir -p /home/jenkins/agent/workspace/jenkins-ci/helm/.cache/helm/repository"
             sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/ --repository-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.yaml --registry-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.json --repository-cache /home/jenkins/agent/workspace/jenkins-ci/helm/.cache/helm/repository"
             sh "helm repo update --repository-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.yaml --registry-config /home/jenkins/agent/workspace/jenkins-ci/helm/.config/helm/repositories.json --repository-cache /home/jenkins/agent/workspace/jenkins-ci/helm/.cache/helm/repository"
             sh "helm upgrade --install my-guestbook shailendra/guestbook --values dev/values.yaml -n dev --wait"
-          }
-        }
+                 }
+               }
+             }
+           }
+         }

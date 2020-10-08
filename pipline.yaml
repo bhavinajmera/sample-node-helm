@@ -1,7 +1,7 @@
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: helm-pipe
+  name: helm1-pipe
   namespace: jenkins-ci
 spec:
   successfulBuildsHistoryLimit: 5

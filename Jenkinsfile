@@ -10,7 +10,9 @@
             container('jnlp-agent-helm') {
               sh "git clone https://github.com/openshift/openshift-jee-sample.git ."
               sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/"
-              sh "oc start-build -F openshift-jee-sample-docker --from-file=target/ROOT.war"
+              openshift.withCluster(){
+                sh "helm upgrade --install my-guestbook shailendra/guestbook --values dev/values.yaml -n dev --wait"
+              }
             }
           }
         }

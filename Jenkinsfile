@@ -1,6 +1,5 @@
         podTemplate(label: "mypod", 
                     cloud: "openshift", 
-                    podRetention: onFailure(),
                     containers: [
             containerTemplate(name: "centos7-helm", 
                               image: "default-route-openshift-image-registry.apps.shared-na4.na4.openshift.opentlc.com/jenkins-ci/centos7-helm", 

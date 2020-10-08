@@ -6,7 +6,7 @@
                               command: 'cat',
                               ttyEnabled: true)
         ])
-        pipline {
+        pipeline {
           agent {
             node {
               label 'mypod'

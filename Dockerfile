@@ -1,4 +1,4 @@
-FROM docker.io/library/centos:centos7
+FROM registry.redhat.io/openshift4/ose-jenkins-agent-base
 
 ENV VERIFY_CHECKSUM=false
 

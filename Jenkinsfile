@@ -15,5 +15,3 @@
             sh "helm upgrade --install my-guestbook shailendra/guestbook --values dev/values.yaml -n dev --wait"
           }
         }
-  triggers:
-  - type: ConfigChange

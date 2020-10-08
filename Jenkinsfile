@@ -12,7 +12,7 @@
               sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/"
               openshift.withCluster(){
                 openshift.withProject() {
-                  sh "helm upgrade --install my-guestbook shailendra/guestbook  --wait"
+                  sh "helm upgrade --install my-guestbook shailendra/guestbook -n jenkins-ci --wait"
                 }
               }
             }

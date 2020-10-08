@@ -11,7 +11,9 @@
               sh "git clone https://github.com/openshift/openshift-jee-sample.git ."
               sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/"
               openshift.withCluster(){
-                sh "helm upgrade --install my-guestbook shailendra/guestbook  --wait"
+                openshift.withProject() {
+                  sh "helm upgrade --install my-guestbook shailendra/guestbook  --wait"
+                }
               }
             }
           }

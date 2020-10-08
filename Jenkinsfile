@@ -1,7 +1,8 @@
         podTemplate(label: "mypod", 
                     cloud: "openshift", 
+                    podRetention: onFailure(),
                     containers: [
-            containerTemplate(name: "helm", 
+            containerTemplate(name: "centos7-helm", 
                               image: "image-registry.openshift-image-registry.svc:5000/jenkins-ci/centos7-helm", 
                               command: "cat", 
                               ttyEnabled: true)

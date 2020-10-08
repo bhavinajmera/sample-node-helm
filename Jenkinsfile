@@ -12,6 +12,10 @@
               sh "helm repo update"
               openshift.withCluster(){
                 openshift.withProject() {
+                  openshift.selector("all", [ template : templateName ]).delete()
+                  if (openshift.selector("secrets", templateName).exists()) {
+                      openshift.selector("secrets", templateName).delete() }
+
                   sh "helm upgrade --install my-guestbook stable/guestbook -n jenkins-ci --wait"
                 }
               }

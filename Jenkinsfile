@@ -1,14 +1,10 @@
         podTemplate(label: "mypod", 
                     cloud: "openshift", 
-                    inheritFrom: "maven", 
                     containers: [
-            containerTemplate(name: "jnlp", 
-                              image: "openshift/jenkins-agent-maven-35-centos7:v3.10", 
-                              resourceRequestMemory: "512Mi", 
-                              resourceLimitMemory: "512Mi", 
-                              envVars: [
-              envVar(key: "CONTAINER_HEAP_PERCENT", value: "0.25") 
-            ])
+            containerTemplate(name: "helm", 
+                              image: "image-registry.openshift-image-registry.svc:5000/jenkins-ci/centos7-helm", 
+                              command: "cat", 
+                              ttyEnabled: true)
           ]) {
           node("mypod") { 
             sh "git clone https://github.com/openshift/openshift-jee-sample.git ."

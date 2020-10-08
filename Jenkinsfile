@@ -16,5 +16,3 @@
             sh "oc start-build -F openshift-jee-sample-docker --from-file=target/ROOT.war"
           }
         }
-  triggers:
-  - type: ConfigChange

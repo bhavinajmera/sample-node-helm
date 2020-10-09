@@ -1,6 +1,6 @@
         podTemplate(label: "mypod", 
                     cloud: "openshift", 
-                    inherit: "maven",
+                    inheritFrom: "maven",
                     containers: [
             containerTemplate(name: "jnlp-agent-helm", 
                               image: "image-registry.openshift-image-registry.svc:5000/jenkins-ci/jnlp-agent-helm", 

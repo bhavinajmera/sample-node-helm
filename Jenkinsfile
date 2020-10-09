@@ -12,7 +12,7 @@
               sh "helm repo update"
               openshift.withCluster(){
                 openshift.withProject() {
-                  sh "helm upgrade --install my-guestbook stable/nodejs -n jenkins-ci --wait"
+                  sh "helm upgrade --install mysql stable/mysql -n jenkins-ci --wait"
                 } 
               }
             }

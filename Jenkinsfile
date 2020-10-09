@@ -8,11 +8,11 @@
           ]) {
           node("mypod") { 
             container('jnlp-agent-helm') {
-              sh "helm repo add stable https://shailendra14k.github.io/sample-helm-chart/"
+              sh "helm repo add stable https://kubernetes-charts.storage.googleapis.com/"
               sh "helm repo update"
               openshift.withCluster(){
                 openshift.withProject() {
-                  sh "helm upgrade --install my-guestbook shailendra/guestbook -n jenkins-ci --wait"
+                  sh "helm upgrade --install my-guestbook stable/nodejs -n jenkins-ci --wait"
                 } 
               }
             }

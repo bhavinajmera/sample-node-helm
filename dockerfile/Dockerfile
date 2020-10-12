@@ -1,4 +1,4 @@
-FROM registry.redhat.io/openshift4/ose-jenkins-agent-base
+FROM openshift4/ose-jenkins-agent-base
 
 ENV VERIFY_CHECKSUM=false
 

@@ -1,0 +1,20 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: jnlp-agent-helm
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/bhavinajmera/sample-node-helm.git'
+      ref: master
+    contextDir: dockerfile
+  strategy:
+    type: Docker
+    #With this you can set a path to the docker file
+    #dockerStrategy:
+    # dockerfilePath: dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'jnlp-agent-helm:latest'
